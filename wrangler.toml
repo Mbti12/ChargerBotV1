@@ -1,3 +1,3 @@
-name = "your-worker-name"
+name = "ChargerBotV2"
 main = "src/index.js"
 compatibility_date = "2024-04-01"
