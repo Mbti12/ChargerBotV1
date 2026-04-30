@@ -176,7 +176,7 @@ export default {
   </style>
 </head>
 <body>
-  <h1>ChargerBot v188</h1>
+  <h1>ChargerBot v2</h1>
   <div id="chat"><div class="msg bot"><strong>ChargerBot:</strong> Ready to help! Ask me anything.</div></div>
   <div class="input-wrap">
     <input type="text" id="i" placeholder="Ask about AHS here..." onkeypress="if(event.key==='Enter')ask()">
