@@ -1,4 +1,4 @@
-# ChargerBotV1
+# ChargerBot
 
 A prototype chatbot built for the **AgourAI Club**. The ChargerBot is a very early stage project focused on experimenting with an LLM backend and deployment via Cloudflare. 
 
