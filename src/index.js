@@ -133,7 +133,7 @@ export default {
             model: "llama-3.3-70b-versatile",
             messages: [
               { role: "system", content: SYSTEM_PROMPT },
-              { role: "user", content: `BASE:\n${BASE_KNOWLEDGE}\n\nSCRAPED (from ${target}):\n${liveData}\n\nQUESTION: ${prompt}` }
+              { role: "user", content: `BASE:\n\${BASE_KNOWLEDGE}\n\nSCRAPED (from \${target}):\n\${liveData}\n\nQUESTION: \${prompt}` }
             ]
           })
         });
@@ -180,14 +180,6 @@ export default {
       display: flex;
       justify-content: center;
       margin-bottom: 10px;
-    }
-
-    .header-img {
-      width: 100px;
-      height: 100px;
-      border-radius: 20px;
-      object-fit: cover;
-      background: #eee;
     }
 
     h1 { 
@@ -360,7 +352,7 @@ export default {
       text = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
       text = text.replace(/^### (.+)$/gm, "<h3>$1</h3>");
       text = text.replace(/\\*\\*(.+?)\\*\\*/g, "<strong>$1</strong>");
-      text = text.replace(/\`([^\`]+)\`/g, "<code>$1</code>");
+      text = text.replace(/\\\`([^\\\`]+)\\\`/g, "<code>$1</code>");
       text = text.replace(/^(?:[-*]) (.+)$/gm, "<li>$1</li>");
       text = text.replace(/(<li>.*<\\/li>)/s, (match) => "<ul>" + match + "</ul>");
       text = text.replace(/(<li>[\\s\\S]*?<\\/li>)(?!\\s*<li>)/g, (match) => {
@@ -385,11 +377,11 @@ export default {
       const val = input.value.trim();
       if (!val) return;
 
-      const userHtml = `
+      const userHtml = \`
         <div class="msg-row user-row">
-          <div class="avatar"><img src="${USER_IMAGE}" alt="User"></div>
-          <div class="msg-content user-content">${val}</div>
-        </div>`;
+          <div class="avatar"><img src="\${USER_IMAGE}" alt="User"></div>
+          <div class="msg-content user-content">\${val}</div>
+        </div>\`;
       chat.insertAdjacentHTML('beforeend', userHtml);
       
       input.value = "";
@@ -400,11 +392,11 @@ export default {
         const d = await res.json();
         
         const botId = "msg-" + Date.now();
-        const botHtml = `
+        const botHtml = \`
           <div class="msg-row bot-row">
-            <div class="avatar"><img src="${BOT_IMAGE}" alt="Bot"></div>
-            <div class="msg-content bot-content" id="${botId}"></div>
-          </div>`;
+            <div class="avatar"><img src="\${BOT_IMAGE}" alt="Bot"></div>
+            <div class="msg-content bot-content" id="\${botId}"></div>
+          </div>\`;
         chat.insertAdjacentHTML('beforeend', botHtml);
         
         const formatted = formatResponse(d.content);
@@ -412,16 +404,16 @@ export default {
         chat.scrollTop = chat.scrollHeight;
       } catch {
         const botId = "msg-" + Date.now();
-        const errorHtml = `
+        const errorHtml = \`
           <div class="msg-row bot-row">
-            <div class="avatar"><img src="${BOT_IMAGE}" alt="Bot"></div>
-            <div class="msg-content bot-content" id="${botId}"></div>
-          </div>`;
+            <div class="avatar"><img src="\${BOT_IMAGE}" alt="Bot"></div>
+            <div class="msg-content bot-content" id="\${botId}"></div>
+          </div>\`;
         chat.insertAdjacentHTML('beforeend', errorHtml);
         typeWriter(document.getElementById(botId), "I'm having trouble thinking. Go Chargers!");
       }
     }
-</script>
+<\/script>
 </body>
 </html>`, { headers: { "Content-Type": "text/html" } });
   }
