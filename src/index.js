@@ -133,7 +133,7 @@ export default {
             model: "llama-3.3-70b-versatile",
             messages: [
               { role: "system", content: SYSTEM_PROMPT },
-              { role: "user", content: `BASE:\n\${BASE_KNOWLEDGE}\n\nSCRAPED (from \${target}):\n\${liveData}\n\nQUESTION: \${prompt}` }
+              { role: "user", content: `BASE:\n${BASE_KNOWLEDGE}\n\nSCRAPED (from ${target}):\n${liveData}\n\nQUESTION: ${prompt}` }
             ]
           })
         });
@@ -349,7 +349,7 @@ export default {
     }
 
     function formatResponse(text) {
-      text = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      text = text.replace(/&/g, "&").replace(/</g, "<").replace(/>/g, ">");
       text = text.replace(/^### (.+)$/gm, "<h3>$1</h3>");
       text = text.replace(/\\*\\*(.+?)\\*\\*/g, "<strong>$1</strong>");
       text = text.replace(/\\\`([^\\\`]+)\\\`/g, "<code>$1</code>");
